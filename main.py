@@ -21,6 +21,8 @@ TEXT = (
 
 
 # The competition accepts a single line of 1 to 200 characters.
+# A newline would break the "one line" part of the brief even if the
+# character count fits, so the gate rejects one as well.
 MIN_CHARS = 1
 MAX_CHARS = 200
 
@@ -33,6 +35,8 @@ def check_length(text: str) -> None:
             f"entry text is {n} characters; the gate allows "
             f"{MIN_CHARS} to {MAX_CHARS}"
         )
+    if "\n" in text or "\r" in text:
+        raise SystemExit("entry text must be a single line")
 
 
 def main() -> None:
